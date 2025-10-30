@@ -1,0 +1,21 @@
+{
+    "getCourseDetails": "getCourseDetails",
+    "getInstancesDetails":"getInstancesDetails",
+    "registerCourse":"registerCourse",
+    "getCourseEnrollments":"getCourseEnrollments",
+    "getProgramDetails":"getProgramDetails",
+    "registerProgram":"registerProgram",
+    "getProgramEnrollments":"getProgramEnrollments",
+    "registerProgramCourse":"registerProgramCourse",
+    "getProgramModulesDetails":"getProgramModulesDetails",
+    "getProgramCourseDetails":"getProgramCourseDetails",
+    "getCatalogList":"getCatalogList",
+    "getSessionDetails":"getSessionDetails",
+    "GetContentLaunchURL":"GetContentLaunchURL",
+    "cancelCourseEnrollment":"cancelCourseEnrollment",
+    "getItemsNeedAttentionList":"getItemsNeedAttentionList",
+    "cancelProgramEnrollment":"cancelProgramEnrollment",
+    "getProgramEnrollmentsCount":"getProgramEnrollmentsCount",
+    "getEnrollCount":"getEnrollCount"
+
+}

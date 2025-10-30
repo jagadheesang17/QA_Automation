@@ -1,0 +1,19 @@
+{
+    "customAdminUserID": {
+        "id": "c816d15b-ff39-4eb1-82c1-cfeaa489e8b0",
+        "credentials": {
+            "client_id": "4945c84ed1941950b0f42acf80fff110",
+            "client_secret": "6bfa75b27e35d58da40d0b547bc74b1a"
+        }
+    },
+    "Arivazhaganp":{
+        "id": "cbd3c1f9-b4f7-49b3-8436-e45ab428bdb0",
+        "credentials": {
+            "client_id": "38f78440b5e4693f47361d3e5c0c80b9",
+            "client_secret": "ec7905d0fc328980352675c79fceaa66"
+        }
+    }
+}
+
+
+

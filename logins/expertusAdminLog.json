@@ -1,0 +1,55 @@
+{
+  "cookies": [
+    {
+      "name": "general",
+      "value": "72c13351e845af4508a849c0051cc605",
+      "domain": "automation.expertusoneqa.in",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "admin",
+      "value": "9fab74f21404edf663552d047f5f6680",
+      "domain": "automation.expertusoneqa.in",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "bdae35a604dcd3e580625816ee4df52f",
+      "value": "YToyOntzOjk6IkJhc2VQYXJhbSI7YTo2OntzOjM6InVybCI7czo0NjoiaHR0cHM6Ly9hdXRvbWF0aW9uLmV4cGVydHVzb25lcWEuaW4vYXV0aG9yaXplZCI7czo4OiJ1c2VybmFtZSI7czoxMToiY3VzdG9tYWRtaW4iO3M6ODoicGFzc3dvcmQiO3M6OToiV2VsY29tZTFAIjtzOjc6ImdlbmVyYWwiO3M6MzI6IjcyYzEzMzUxZTg0NWFmNDUwOGE4NDljMDA1MWNjNjA1IjtzOjU6ImFkbWluIjtzOjMyOiI5ZmFiNzRmMjE0MDRlZGY2NjM1NTJkMDQ3ZjVmNjY4MCI7czo3OiJjb21wYW55IjtzOjExOiJFeHBlcnR1c09ORSI7fXM6MTA6IkF1dGhTdGF0dXMiO2E6Mzp7czo2OiJTdGF0dXMiO3M6NzoiU3VjY2VzcyI7czo3OiJNZXNzYWdlIjtzOjM3OiJVc2VyIGF1dGhlbnRpY2F0aW9uIGRvbmUgc3VjY2Vzc2Z1bGx5IjtzOjc6IkRldGFpbHMiO2E6MTk6e3M6MTA6Im9uZXByb2ZpbGUiO3M6MzI6ImZlYWQ2MTgzNzY4NDA4ZTNlYTI3MWY4YmFjZjM5MGUzIjtzOjY6IkFjY2VzcyI7czozMzoieyJhZG1pbiI6IFsxXSwgImxlYXJuZXIiOiBbMSwgNF19IjtzOjY6IlVzZXJJZCI7czozNjoiYzgxNmQxNWItZmYzOS00ZWIxLTgyYzEtY2ZlYWE0ODllOGIwIjtzOjg6IlVzZXJuYW1lIjtzOjExOiJjdXN0b21hZG1pbiI7czo4OiJQYXNzd29yZCI7czozMjoiMGI2ODU5YTc2OGI4N2I5NDMyY2RjMGIyNmE0OWJlNDIiO3M6NToiRW1haWwiO047czo5OiJGaXJzdE5hbWUiO3M6ODoiQ3VzdG9tZXIiO3M6MTE6IkRpc3BsYXlOYW1lIjtOO3M6ODoiTGFzdE5hbWUiO3M6NToiQWRtaW4iO3M6ODoiRnVsbE5hbWUiO3M6MTQ6IkN1c3RvbWVyIEFkbWluIjtzOjE3OiJQcmVmZXJyZWRMYW5ndWFnZSI7TjtzOjE3OiJQcmVmZXJyZWRDdXJyZW5jeSI7czo5OiJVUyBEb2xsYXIiO3M6NzoiQ29tcGFueSI7czoxMToiRXhwZXJ0dXNPTkUiO3M6NjoiU3RhdHVzIjtzOjY6IkFjdGl2ZSI7czo1OiJUaXRsZSI7TjtzOjQ6IkNpdHkiO047czo3OiJQaWN0dXJlIjtOO3M6ODoiVGltZVpvbmUiO3M6NzoidG16XzA1NyI7czozOiJfaWQiO2k6Mzt9fX0%3D",
+      "domain": ".universalprofile.expertusoneqa.in",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "d020d399bf9fcb2b8909c3559364765b",
+      "value": "a%3A1%3A%7Bi%3A0%3Bs%3A27%3A%22automation.expertusoneqa.in%22%3B%7D",
+      "domain": ".universalprofile.expertusoneqa.in",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "657c997910fe88a1375f3922f5f4c540",
+      "value": "c816d15b-ff39-4eb1-82c1-cfeaa489e8b0",
+      "domain": ".automation.expertusoneqa.in",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": []
+}

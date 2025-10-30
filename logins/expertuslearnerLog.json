@@ -1,0 +1,95 @@
+{
+  "cookies": [
+    {
+      "name": "general",
+      "value": "6c7e004b4ecd843d5c1d0d51e63fbf0f",
+      "domain": "automation.expertusoneqa.in",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "admin",
+      "value": "b0b3e1c791636a3d265f619e30805c11",
+      "domain": "automation.expertusoneqa.in",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "e1internal",
+      "value": "74b45951b53c468277b6a26fd0e68efc",
+      "domain": "automation.expertusoneqa.in",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "YSC",
+      "value": "ns0IFAP9y6Y",
+      "domain": ".youtube.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "VISITOR_INFO1_LIVE",
+      "value": "rbUD8NzO84k",
+      "domain": ".youtube.com",
+      "path": "/",
+      "expires": 1734414432.14676,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "VISITOR_PRIVACY_METADATA",
+      "value": "CgJJThIEGgAgKw%3D%3D",
+      "domain": ".youtube.com",
+      "path": "/",
+      "expires": 1734414432.146973,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "bdae35a604dcd3e580625816ee4df52f",
+      "value": "YToyOntzOjk6IkJhc2VQYXJhbSI7YToxMTp7czozOiJ1cmwiO3M6NjU6Imh0dHBzOi8vYXV0b21hdGlvbi5leHBlcnR1c29uZXFhLmluL2xlYXJuZXIvZTFpbnRlcm5hbC9hdXRob3JpemVkIjtzOjg6InVzZXJuYW1lIjtzOjEyOiJsZWFybmVydXNlcjEiO3M6ODoicGFzc3dvcmQiO3M6OToiV2VsY29tZTFAIjtzOjc6ImNhcHRjaGEiO3M6MDoiIjtzOjQ6ImFqYXgiO3M6NToiZmFsc2UiO3M6MTE6InJlZGlyZWN0X3RvIjtzOjE5OiIvbGVhcm5lci9lMWludGVybmFsIjtzOjE1OiJjYXB0Y2hhUmVxdWlyZWQiO3M6NToiZmFsc2UiO3M6NzoiZ2VuZXJhbCI7czozMjoiNmM3ZTAwNGI0ZWNkODQzZDVjMWQwZDUxZTYzZmJmMGYiO3M6NToiYWRtaW4iO3M6MzI6ImIwYjNlMWM3OTE2MzZhM2QyNjVmNjE5ZTMwODA1YzExIjtzOjEwOiJlMWludGVybmFsIjtzOjMyOiI3NGI0NTk1MWI1M2M0NjgyNzdiNmEyNmZkMGU2OGVmYyI7czo3OiJjb21wYW55IjtzOjExOiJFeHBlcnR1c09ORSI7fXM6MTA6IkF1dGhTdGF0dXMiO2E6Mzp7czo2OiJTdGF0dXMiO3M6NzoiU3VjY2VzcyI7czo3OiJNZXNzYWdlIjtzOjM3OiJVc2VyIGF1dGhlbnRpY2F0aW9uIGRvbmUgc3VjY2Vzc2Z1bGx5IjtzOjc6IkRldGFpbHMiO2E6MTk6e3M6MTA6Im9uZXByb2ZpbGUiO3M6MzI6IjM2YTY1NTQ1MTUwYjFjNzg4YmQ3OTZhMmUxM2Q5YWI0IjtzOjY6IkFjY2VzcyI7czozMzoieyJhZG1pbiI6IFsxXSwgImxlYXJuZXIiOiBbMSwgNF19IjtzOjY6IlVzZXJJZCI7czozNjoiMjgxNTdlOWEtMWMzZi00NDI3LWI4NmUtNDdkODkyMzliMjBiIjtzOjg6IlVzZXJuYW1lIjtzOjEyOiJsZWFybmVydXNlcjEiO3M6ODoiUGFzc3dvcmQiO3M6MzI6IjBiNjg1OWE3NjhiODdiOTQzMmNkYzBiMjZhNDliZTQyIjtzOjU6IkVtYWlsIjtOO3M6OToiRmlyc3ROYW1lIjtzOjc6IkxlYXJuZXIiO3M6MTE6IkRpc3BsYXlOYW1lIjtOO3M6ODoiTGFzdE5hbWUiO3M6NToidXNlcjEiO3M6ODoiRnVsbE5hbWUiO3M6MTM6IkxlYXJuZXIgdXNlcjEiO3M6MTc6IlByZWZlcnJlZExhbmd1YWdlIjtOO3M6MTc6IlByZWZlcnJlZEN1cnJlbmN5IjtzOjk6IlVTIERvbGxhciI7czo3OiJDb21wYW55IjtzOjExOiJFeHBlcnR1c09ORSI7czo2OiJTdGF0dXMiO3M6NjoiQWN0aXZlIjtzOjU6IlRpdGxlIjtOO3M6NDoiQ2l0eSI7TjtzOjc6IlBpY3R1cmUiO047czo4OiJUaW1lWm9uZSI7czo3OiJ0bXpfMDU3IjtzOjM6Il9pZCI7aToxODt9fX0%3D",
+      "domain": ".universalprofile.expertusoneqa.in",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "d020d399bf9fcb2b8909c3559364765b",
+      "value": "a%3A1%3A%7Bi%3A0%3Bs%3A27%3A%22automation.expertusoneqa.in%22%3B%7D",
+      "domain": ".universalprofile.expertusoneqa.in",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "657c997910fe88a1375f3922f5f4c540",
+      "value": "28157e9a-1c3f-4427-b86e-47d89239b20b",
+      "domain": ".automation.expertusoneqa.in",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": []
+}
