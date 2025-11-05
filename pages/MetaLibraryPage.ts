@@ -100,6 +100,9 @@ export class MetaLibraryPage extends AdminHomePage {
         toggleSwitchInCurrency: (option: string) => `//span[text()='${option}']//following::i`,
         peopleeditIcon: (data: string) => `(//span[text()='${data}']/following::span[@title='Edit'])[1]`,
         editIcon: (data: string) => `(//span[text()='${data}']//following::span[@aria-label='Edit'])[1]`,
+        //general
+        equipmentLabelMetadataLibrary:`//div[@id="equipment-header"]`
+
 
 
     };
@@ -163,6 +166,7 @@ export class MetaLibraryPage extends AdminHomePage {
         await this.page.locator(this.selectors.saveBtn).scrollIntoViewIfNeeded();
         await this.click(this.selectors.saveBtn, "Save", "Button");
         // await this.spinnerDisappear();
+        console.log("saveButton completed")
     }
 
     async verifyCategory(data: string) {
@@ -444,16 +448,19 @@ export class MetaLibraryPage extends AdminHomePage {
 
     public async clickAddEquipment() {
         await this.click(this.selectors.addEquipmentBtn, "Add Equipment", "Button");
+         console.log("clickAddEquipment comleted");
     }
 
     public async enterEquipmentName(data: string) {
         await this.validateElementVisibility(this.selectors.equipmentname, "Name");
         await this.type(this.selectors.equipmentname, "Name", data)
+        console.log("enterEquipmentName comleted");
     }
 
     public async verifyEquipment(data: string) {
         await this.typeAndEnter(this.selectors.equipmentSearchInput, "Search Input", data)
         await this.spinnerDisappear();
+        console.log("verifyEquipment completed");
     }
     async tagsSearchField(data: string) {
         await this.retrieveData(this.selectors.newOfTag(data), filePath.tags)
@@ -682,6 +689,13 @@ export class MetaLibraryPage extends AdminHomePage {
     }
 }
 
+   async clickequipmentLabel() {
+        await this.wait("mediumWait");
+        await this.click(this.selectors.equipmentLabelMetadataLibrary, "Create Location", "Button");
+        console.log("clickequipment comleted");
+    }
+
+
 
    public async verifydeleteitemProvider(searchText: string) {
     await this.page.fill('//input[@id="provider-search-field"]', searchText);
@@ -707,6 +721,8 @@ export class MetaLibraryPage extends AdminHomePage {
         } else {
             console.log("Deletion failed.");
     }
+
+    
 
 
     // public async verifydeleteitem(searchText: string) {

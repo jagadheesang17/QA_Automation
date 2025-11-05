@@ -7,7 +7,6 @@ import { FakerData } from "../../../utils/fakerUtils";
 import { credentials } from "../../../constants/credentialData";
 import { URLConstants } from "../../../constants/urlConstants";
 
-
 let access_token: any;
 let Location_id:any;
 let locationName=FakerData.getLocationName();
@@ -92,7 +91,7 @@ test.describe('Testing UserCEUAPI Functionality', () => {
             await createCourse.verifySuccessMessage();
     
         })
-
+    
 });
 
 

@@ -21,10 +21,10 @@ test(`Verify that language can be selected based on the list of languages under 
 })
 
 let equipment=FakerData.equipmentName();
-test(`Ensure that equipment can be added successfully`, async ({ adminHome, metadatalibrary }) => {
+test(`Ensure that equipment can be added  successfully`, async ({ adminHome, metadatalibrary }) => {
     test.info().annotations.push(
-        { type: 'Author', description: 'Ajay Michael' },
-        { type: 'TestCase', description: 'Ensure that equipment can be added successfully' },
+        { type: 'Author', description: 'Manikandan' },
+        { type: 'TestCase', description: 'Ensure that equipment can be added  successfully' },
         { type: 'Test Description', description: 'Ensure that equipment can be added successfully' }
     );
 
@@ -40,3 +40,4 @@ test(`Ensure that equipment can be added successfully`, async ({ adminHome, meta
     await metadatalibrary.verifyEquipment(equipment);
 
 })
+
