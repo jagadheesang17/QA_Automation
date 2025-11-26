@@ -448,7 +448,9 @@ public async clickOkButton() {
 
 async verifyCustomFieldLabelWithHashSymbol(customFieldName: string) {
     await this.wait('minWait');
-    const labelWithHash = this.page.locator(`//label[contains(.,'${customFieldName}')]//span[text()='#'] | //label[contains(.,'${customFieldName}') and contains(.,'#')]`).first();
+    const labelWithHash = this.page.getByLabel(new RegExp(customFieldName, 'i')).locator('..').getByText('#').or(
+        this.page.locator(`label:has-text("${customFieldName}"):has-text("#")`)
+    ).first();
     await labelWithHash.waitFor({ state: 'visible', timeout: 10000 });
     const isVisible = await labelWithHash.isVisible();
     expect(isVisible).toBeTruthy();
@@ -457,7 +459,9 @@ async verifyCustomFieldLabelWithHashSymbol(customFieldName: string) {
 
 async verifyMandatoryCustomFieldValidation(customFieldName: string) {
     await this.wait('minWait');
-    const validationError = this.page.locator(`//label[contains(.,'${customFieldName}')]//following::span[contains(@class,'error') or contains(@class,'validation') or contains(text(),'required') or contains(text(),'mandatory')] | //div[contains(@class,'error') and contains(.,'${customFieldName}')] | //span[contains(text(),'${customFieldName}') and (contains(text(),'required') or contains(text(),'mandatory'))]`).first();
+    const validationError = this.page.locator(`label:has-text("${customFieldName}") ~ span.error, label:has-text("${customFieldName}") ~ span.validation, div.error:has-text("${customFieldName}")`).or(
+        this.page.getByText(/required|mandatory/i).filter({ hasText: customFieldName })
+    ).first();
     await validationError.waitFor({ state: 'visible', timeout: 10000 });
     const isVisible = await validationError.isVisible();
     expect(isVisible).toBeTruthy();

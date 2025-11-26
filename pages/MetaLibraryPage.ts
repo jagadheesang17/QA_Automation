@@ -761,7 +761,7 @@ export class MetaLibraryPage extends AdminHomePage {
 
     public async clickCreateCustomefieldButton() {
         await this.wait('minWait');
-        const createBtn = this.page.locator("//button[contains(.,'Create') or contains(.,'Create Custom Field')]").first();
+        const createBtn = this.page.getByRole('button', { name: /create.*custom field/i });
         if (await createBtn.count() > 0) {
             await createBtn.click();
         } else {
@@ -772,11 +772,11 @@ export class MetaLibraryPage extends AdminHomePage {
     }
 
     public async clickDropdownRadioButton() {
-        const dropdownLabel = this.page.locator("//label[contains(.,'Drop Down') or contains(.,'Dropdown')]").first();
+        const dropdownLabel = this.page.getByLabel(/drop ?down/i);
         if (await dropdownLabel.count() > 0) {
             await dropdownLabel.click();
         } else {
-            const radio = this.page.locator("//input[@type='radio' and (contains(@value,'dropdown') or contains(@aria-label,'dropdown'))]").first();
+            const radio = this.page.getByRole('radio', { name: /dropdown/i });
             if (await radio.count() > 0) await radio.click();
         }
         await this.wait('minWait');
@@ -809,7 +809,7 @@ export class MetaLibraryPage extends AdminHomePage {
     }
 
     public async verifyCustomFieldInList(name: string) {
-        const locator = this.page.locator(`//span[normalize-space(text())='${name}']`);
+        const locator = this.page.getByText(name, { exact: true });
         await locator.waitFor({ state: 'visible', timeout: 10000 });
         expect(await locator.isVisible()).toBeTruthy();
     }
@@ -849,7 +849,7 @@ export class MetaLibraryPage extends AdminHomePage {
         const disableBtn = this.page.locator(this.selectors.disableToggle(fieldName)).first();
         await disableBtn.click();
         await this.wait('minWait');
-        const confirmBtn = this.page.locator("//button[text()='Yes'] | //button[text()='OK']").first();
+        const confirmBtn = this.page.getByRole('button', { name: /^(Yes|OK)$/i });
         if (await confirmBtn.isVisible({ timeout: 2000 }).catch(() => false)) {
             await confirmBtn.click();
             await this.wait('minWait');
@@ -896,17 +896,18 @@ export class MetaLibraryPage extends AdminHomePage {
 
     public async searchCustomField(fieldName: string) {
         await this.wait('minWait');
-        const searchInput = this.page.locator("//input[contains(@id,'search') or contains(@placeholder,'Search')]").first();
+        const searchInput = this.page.getByPlaceholder(/search/i).or(this.page.locator('input[id*="search"]')).first();
         await searchInput.fill(fieldName);
         await this.wait('minWait');
     }
 
     public async clickDeleteIcon(fieldName: string) {
         await this.wait('minWait');
-        const deleteIcon = this.page.locator(`//span[text()='${fieldName}']//ancestor::div[contains(@class,'row')]//i[contains(@class,'trash')] | //span[text()='${fieldName}']//following::a[@aria-label='Delete']`).first();
+        const row = this.page.getByText(fieldName, { exact: true }).locator('..');
+        const deleteIcon = row.locator('i.trash, a[aria-label="Delete"]').first();
         await deleteIcon.click();
         await this.wait('minWait');
-        const confirmBtn = this.page.locator("//button[text()='Yes'] | //button[text()='Delete']").first();
+        const confirmBtn = this.page.getByRole('button', { name: /^(Yes|Delete)$/i });
         if (await confirmBtn.isVisible({ timeout: 2000 }).catch(() => false)) {
             await confirmBtn.click();
             await this.wait('minWait');
@@ -915,21 +916,21 @@ export class MetaLibraryPage extends AdminHomePage {
 
     public async clickRequiredDropdownAndSelectYes() {
         await this.wait('minWait');
-        const requiredDropdown = this.page.locator(this.selectors.customFieldRequiredWrapper + "//button | //label[contains(.,'Required')]//following::button[1]").first();
+        const requiredDropdown = this.page.getByLabel(/required/i).locator('..').getByRole('button').first();
         await requiredDropdown.click();
         await this.wait('minWait');
-        const yesOption = this.page.locator("//span[text()='Yes'] | //div[text()='Yes'] | //li[text()='Yes']").first();
+        const yesOption = this.page.getByText('Yes', { exact: true }).first();
         await yesOption.click();
         await this.wait('minWait');
     }
 
     public async clickTextAreaRadioButton() {
         await this.wait('minWait');
-        const textareaLabel = this.page.locator("//label[contains(.,'Text Area') or contains(.,'Textarea')]").first();
+        const textareaLabel = this.page.getByLabel(/text ?area/i);
         if (await textareaLabel.count() > 0) {
             await textareaLabel.click();
         } else {
-            const radio = this.page.locator("//input[@type='radio' and (contains(@value,'textarea') or contains(@aria-label,'textarea'))]").first();
+            const radio = this.page.getByRole('radio', { name: /textarea/i });
             if (await radio.count() > 0) await radio.click();
         }
         await this.wait('minWait');
@@ -937,18 +938,18 @@ export class MetaLibraryPage extends AdminHomePage {
 
     public async fillFieldLength(length: string) {
         await this.wait('minWait');
-        const fieldLengthInput = this.page.locator("//label[contains(.,'Field Length') or contains(.,'Length')]//following::input[1]").first();
+        const fieldLengthInput = this.page.getByLabel(/field length|length/i);
         await fieldLengthInput.fill(length);
         await this.wait('minWait');
     }
 
     public async clickDatePickerRadioButton() {
         await this.wait('minWait');
-        const datePickerLabel = this.page.locator("//label[contains(.,'Date Picker') or contains(.,'Date')]").first();
+        const datePickerLabel = this.page.getByLabel(/date.*picker|date/i);
         if (await datePickerLabel.count() > 0) {
             await datePickerLabel.click();
         } else {
-            const radio = this.page.locator("//input[@type='radio' and (contains(@value,'date') or contains(@aria-label,'date'))]").first();
+            const radio = this.page.getByRole('radio', { name: /date/i });
             if (await radio.count() > 0) await radio.click();
         }
         await this.wait('minWait');
@@ -956,18 +957,18 @@ export class MetaLibraryPage extends AdminHomePage {
 
     public async clickDiscardbutton() {
         await this.wait('minWait');
-        const discardBtn = this.page.locator("//button[normalize-space(.)='Discard'] | //button[normalize-space(.)='Cancel'] | //a[normalize-space(.)='Discard']").first();
+        const discardBtn = this.page.getByRole('button', { name: /^(Discard|Cancel)$/i }).or(this.page.getByRole('link', { name: /discard/i })).first();
         await discardBtn.click();
         await this.wait('minWait');
     }
 
     public async clickTextBoxRadioButton() {
         await this.wait('minWait');
-        const textboxLabel = this.page.locator("//label[contains(.,'Text Box') or contains(.,'Textbox')]").first();
+        const textboxLabel = this.page.getByLabel(/text ?box/i);
         if (await textboxLabel.count() > 0) {
             await textboxLabel.click();
         } else {
-            const radio = this.page.locator("//input[@type='radio' and (contains(@value,'textbox') or contains(@aria-label,'textbox'))]").first();
+            const radio = this.page.getByRole('radio', { name: /textbox/i });
             if (await radio.count() > 0) await radio.click();
         }
         await this.wait('minWait');
@@ -975,11 +976,11 @@ export class MetaLibraryPage extends AdminHomePage {
 
     public async clickCheckboxRadioButton() {
         await this.wait('minWait');
-        const checkboxLabel = this.page.locator("//label[contains(.,'Check Box') or contains(.,'Checkbox')]").first();
+        const checkboxLabel = this.page.getByLabel(/check ?box/i);
         if (await checkboxLabel.count() > 0) {
             await checkboxLabel.click();
         } else {
-            const radio = this.page.locator("//input[@type='radio' and (contains(@value,'checkbox') or contains(@aria-label,'checkbox'))]").first();
+            const radio = this.page.getByRole('radio', { name: /checkbox/i });
             if (await radio.count() > 0) await radio.click();
         }
         await this.wait('minWait');
@@ -987,10 +988,10 @@ export class MetaLibraryPage extends AdminHomePage {
 
     public async clickDeleteButton() {
         await this.wait('minWait');
-        const deleteBtn = this.page.locator("//button[normalize-space(.)='Delete'] | //button[normalize-space(.)='Remove']").first();
+        const deleteBtn = this.page.getByRole('button', { name: /^(Delete|Remove)$/i });
         await deleteBtn.click();
         await this.wait('minWait');
-        const confirmBtn = this.page.locator("//button[text()='Yes'] | //button[text()='Delete'] | //button[text()='Confirm']").first();
+        const confirmBtn = this.page.getByRole('button', { name: /^(Yes|Delete|Confirm)$/i });
         if (await confirmBtn.isVisible({ timeout: 2000 }).catch(() => false)) {
             await confirmBtn.click();
             await this.wait('minWait');
@@ -999,7 +1000,7 @@ export class MetaLibraryPage extends AdminHomePage {
 
     public async clickLocationCheckbox() {
         await this.wait('minWait');
-        const cb = this.page.locator("//label[contains(.,'Location')]//following::input[@type='checkbox'][1]").first();
+        const cb = this.page.getByRole('checkbox', { name: /location/i });
         if (await cb.count() > 0) {
             await cb.click({ force: true });
         }
@@ -1008,7 +1009,7 @@ export class MetaLibraryPage extends AdminHomePage {
 
     public async clickContentCheckbox() {
         await this.wait('minWait');
-        const cb = this.page.locator("//label[contains(.,'Content')]//following::input[@type='checkbox'][1]").first();
+        const cb = this.page.getByRole('checkbox', { name: /content/i });
         if (await cb.count() > 0) {
             await cb.click({ force: true });
         }
@@ -1017,7 +1018,7 @@ export class MetaLibraryPage extends AdminHomePage {
 
     public async clickAssessmentCheckbox() {
         await this.wait('minWait');
-        const cb = this.page.locator("//label[contains(.,'Assessment')]//following::input[@type='checkbox'][1]").first();
+        const cb = this.page.getByRole('checkbox', { name: /assessment/i });
         if (await cb.count() > 0) {
             await cb.click({ force: true });
         }
@@ -1026,7 +1027,7 @@ export class MetaLibraryPage extends AdminHomePage {
 
     public async clickSurveyCheckbox() {
         await this.wait('minWait');
-        const cb = this.page.locator("//label[contains(.,'Survey')]//following::input[@type='checkbox'][1]").first();
+        const cb = this.page.getByRole('checkbox', { name: /survey/i });
         if (await cb.count() > 0) {
             await cb.click({ force: true });
         }
@@ -1035,7 +1036,7 @@ export class MetaLibraryPage extends AdminHomePage {
 
     public async clickOrganizationCheckbox() {
         await this.wait('minWait');
-        const cb = this.page.locator("//label[contains(.,'Organization')]//following::input[@type='checkbox'][1]").first();
+        const cb = this.page.getByRole('checkbox', { name: /organization/i });
         if (await cb.count() > 0) {
             await cb.click({ force: true });
         }
@@ -1044,7 +1045,7 @@ export class MetaLibraryPage extends AdminHomePage {
 
     public async clickOrderCheckbox() {
         await this.wait('minWait');
-        const cb = this.page.locator("//label[contains(.,'Order')]//following::input[@type='checkbox'][1]").first();
+        const cb = this.page.getByRole('checkbox', { name: /order/i });
         if (await cb.count() > 0) {
             await cb.click({ force: true });
         }
@@ -1053,7 +1054,7 @@ export class MetaLibraryPage extends AdminHomePage {
 
     public async clickDiscountCheckbox() {
         await this.wait('minWait');
-        const cb = this.page.locator("//label[contains(.,'Discount')]//following::input[@type='checkbox'][1]").first();
+        const cb = this.page.getByRole('checkbox', { name: /discount/i });
         if (await cb.count() > 0) {
             await cb.click({ force: true });
         }

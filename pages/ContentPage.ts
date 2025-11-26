@@ -222,7 +222,9 @@ export class ContentHomePage extends AdminHomePage {
   
   public async verifyCustomFieldLabelWithHashSymbol(customFieldName: string) {
     await this.wait('minWait');
-    const labelWithHash = this.page.locator(`//label[contains(.,'${customFieldName}')]//span[text()='#'] | //label[contains(.,'${customFieldName}') and contains(.,'#')]`).first();
+    const labelWithHash = this.page.getByLabel(new RegExp(customFieldName, 'i')).locator('..').getByText('#').or(
+        this.page.locator(`label:has-text("${customFieldName}"):has-text("#")`)
+    ).first();
     await labelWithHash.waitFor({ state: 'visible', timeout: 10000 });
     const isVisible = await labelWithHash.isVisible();
     expect(isVisible).toBeTruthy();
@@ -231,7 +233,9 @@ export class ContentHomePage extends AdminHomePage {
 
   public async verifyMandatoryCustomFieldValidation() {
     await this.wait('minWait');
-    const validationError = this.page.locator(`//span[contains(@class,'error') or contains(@class,'validation')] | //div[contains(@class,'error')] | //span[contains(text(),'required') or contains(text(),'mandatory')]`).first();
+    const validationError = this.page.locator('span.error, span.validation, div.error').or(
+        this.page.getByText(/required|mandatory/i)
+    ).first();
     await validationError.waitFor({ state: 'visible', timeout: 10000 });
     const isVisible = await validationError.isVisible();
     expect(isVisible).toBeTruthy();
@@ -240,7 +244,7 @@ export class ContentHomePage extends AdminHomePage {
 
   public async verifySaveButtonDisabled() {
     await this.wait('minWait');
-    const saveButton = this.page.locator("//button[normalize-space(.)='Save'] | //button[normalize-space(.)='Publish']").first();
+    const saveButton = this.page.getByRole('button', { name: /^(Save|Publish)$/i }).first();
     const isDisabled = await saveButton.isDisabled();
     expect(isDisabled).toBeTruthy();
     console.log(`✓ Save button is disabled as expected`);
@@ -248,7 +252,7 @@ export class ContentHomePage extends AdminHomePage {
 
   public async clickSaveButton() {
     await this.wait('minWait');
-    const saveButton = this.page.locator("//button[normalize-space(.)='Save'] | //button[normalize-space(.)='Publish']").first();
+    const saveButton = this.page.getByRole('button', { name: /^(Save|Publish)$/i }).first();
     await saveButton.click();
     await this.wait('minWait');
   }
