@@ -217,4 +217,40 @@ export class ContentHomePage extends AdminHomePage {
       throw new Error(`File type "${text}" not found.`);
     }
   }
+
+  // ===== Custom Field Related Functions =====
+  
+  public async verifyCustomFieldLabelWithHashSymbol(customFieldName: string) {
+    await this.wait('minWait');
+    const labelWithHash = this.page.locator(`//label[contains(.,'${customFieldName}')]//span[text()='#'] | //label[contains(.,'${customFieldName}') and contains(.,'#')]`).first();
+    await labelWithHash.waitFor({ state: 'visible', timeout: 10000 });
+    const isVisible = await labelWithHash.isVisible();
+    expect(isVisible).toBeTruthy();
+    console.log(`✓ Custom field "${customFieldName}" appears with # symbol (mandatory indicator)`);
+  }
+
+  public async verifyMandatoryCustomFieldValidation() {
+    await this.wait('minWait');
+    const validationError = this.page.locator(`//span[contains(@class,'error') or contains(@class,'validation')] | //div[contains(@class,'error')] | //span[contains(text(),'required') or contains(text(),'mandatory')]`).first();
+    await validationError.waitFor({ state: 'visible', timeout: 10000 });
+    const isVisible = await validationError.isVisible();
+    expect(isVisible).toBeTruthy();
+    console.log(`✓ Mandatory field validation displayed`);
+  }
+
+  public async verifySaveButtonDisabled() {
+    await this.wait('minWait');
+    const saveButton = this.page.locator("//button[normalize-space(.)='Save'] | //button[normalize-space(.)='Publish']").first();
+    const isDisabled = await saveButton.isDisabled();
+    expect(isDisabled).toBeTruthy();
+    console.log(`✓ Save button is disabled as expected`);
+  }
+
+  public async clickSaveButton() {
+    await this.wait('minWait');
+    const saveButton = this.page.locator("//button[normalize-space(.)='Save'] | //button[normalize-space(.)='Publish']").first();
+    await saveButton.click();
+    await this.wait('minWait');
+  }
 }
+

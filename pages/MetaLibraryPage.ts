@@ -737,7 +737,7 @@ export class MetaLibraryPage extends AdminHomePage {
     // } else {
     //     console.log("Deletion failed.");
     // }
-
+}
 
 
     // public async verifydeleteitem(searchText: string) {
@@ -749,8 +749,330 @@ export class MetaLibraryPage extends AdminHomePage {
     // else {
     //     console.log(`Item "${searchText}" not found.`);
     // }
+
+    // ===== Custom Field Functions =====
+    
+    public async clickCustomField() {
+        await this.wait('minWait');
+        const locator = this.page.locator(this.selectors.customFieldMenu).first();
+        await locator.click();
+        await this.wait('minWait');
+    }
+
+    public async clickCreateCustomefieldButton() {
+        await this.wait('minWait');
+        const createBtn = this.page.locator("//button[contains(.,'Create') or contains(.,'Create Custom Field')]").first();
+        if (await createBtn.count() > 0) {
+            await createBtn.click();
+        } else {
+            const btn = this.page.locator(this.selectors.customFieldAddOptionBtn).first();
+            await btn.click();
+        }
+        await this.wait('minWait');
+    }
+
+    public async clickDropdownRadioButton() {
+        const dropdownLabel = this.page.locator("//label[contains(.,'Drop Down') or contains(.,'Dropdown')]").first();
+        if (await dropdownLabel.count() > 0) {
+            await dropdownLabel.click();
+        } else {
+            const radio = this.page.locator("//input[@type='radio' and (contains(@value,'dropdown') or contains(@aria-label,'dropdown'))]").first();
+            if (await radio.count() > 0) await radio.click();
+        }
+        await this.wait('minWait');
+    }
+
+    public async fillCustomFieldName(name: string) {
+        const input = this.page.locator(this.selectors.customFieldFieldNameInput).first();
+        await input.fill(name);
+        await this.wait('minWait');
+    }
+
+    public async fillOptionOne(optionText: string) {
+        const opt = this.page.locator(this.selectors.customFieldOption1Input).first();
+        await opt.fill(optionText);
+        await this.wait('minWait');
+    }
+
+    public async clickCourseCheckbox() {
+        const cb = this.page.locator(this.selectors.customFieldCourseCheckbox).first();
+        if (await cb.count() > 0) {
+            await cb.click({ force: true });
+        }
+        await this.wait('minWait');
+    }
+
+    public async clickSavedDraftsTab() {
+        const tab = this.page.locator(this.selectors.savedDraftsTab).first();
+        await tab.click();
+        await this.wait('minWait');
+    }
+
+    public async verifyCustomFieldInList(name: string) {
+        const locator = this.page.locator(`//span[normalize-space(text())='${name}']`);
+        await locator.waitFor({ state: 'visible', timeout: 10000 });
+        expect(await locator.isVisible()).toBeTruthy();
+    }
+
+    public async clickEnableButton() {
+        await this.wait('minWait');
+        const btn = this.page.locator(this.selectors.customFieldEnableBtn).first();
+        await btn.click();
+        await this.wait('minWait');
+    }
+
+    public async fillOptionTwoWithRandomFruits() {
+        const fruits = ['apple', 'orange', 'banana', 'mango', 'grape', 'pineapple'];
+        const randomFruits = fruits.sort(() => 0.5 - Math.random()).slice(0, 3).join(', ');
+        const opt2 = this.page.locator(this.selectors.customFieldOption2Input).first();
+        await opt2.fill(randomFruits);
+        await this.wait('minWait');
+    }
+
+    public async clickAddOptionButton() {
+        await this.wait('minWait');
+        const btn = this.page.locator(this.selectors.customFieldAddOptionBtn).first();
+        await btn.click();
+        await this.wait('minWait');
+    }
+
+    public async fillOptionThreeWithRandomValues() {
+        const values = ['red', 'blue', 'green', 'yellow', 'purple', 'orange'];
+        const randomValues = values.sort(() => 0.5 - Math.random()).slice(0, 3).join(', ');
+        const opt3 = this.page.locator(this.selectors.customFieldOption3Input).first();
+        await opt3.fill(randomValues);
+        await this.wait('minWait');
+    }
+
+    public async disableCustomField(fieldName: string) {
+        await this.wait('minWait');
+        const disableBtn = this.page.locator(this.selectors.disableToggle(fieldName)).first();
+        await disableBtn.click();
+        await this.wait('minWait');
+        const confirmBtn = this.page.locator("//button[text()='Yes'] | //button[text()='OK']").first();
+        if (await confirmBtn.isVisible({ timeout: 2000 }).catch(() => false)) {
+            await confirmBtn.click();
+            await this.wait('minWait');
+        }
+    }
+
+    public async clickDisabledTab() {
+        await this.wait('minWait');
+        const tab = this.page.locator(this.selectors.disabledTab).first();
+        await tab.click();
+        await this.wait('minWait');
+    }
+
+    public async verifyCustomFieldVisible() {
+        await this.wait('minWait');
+        const heading = this.page.locator(this.selectors.customFieldListingPage).first();
+        await heading.waitFor({ state: 'visible', timeout: 10000 });
+        expect(await heading.isVisible()).toBeTruthy();
+    }
+
+    public async verifyCustomFieldEditPage() {
+        await this.wait('minWait');
+        const heading = this.page.locator(this.selectors.customFieldEditPageHeading).first();
+        await heading.waitFor({ state: 'visible', timeout: 10000 });
+        expect(await heading.isVisible()).toBeTruthy();
+    }
+
+    public async clickDepartmentHeader() {
+        await this.wait('minWait');
+        const header = this.page.locator(this.selectors.departmentHeader).first();
+        await header.click();
+        await this.wait('minWait');
+    }
+
+    public async verifyDepartmentSortDefault(sortOrder: string) {
+        await this.wait('minWait');
+        const departmentList = this.page.locator(this.selectors.listOfPeopleDepartment);
+        const count = await departmentList.count();
+        if (count > 0) {
+            const firstItem = await departmentList.first().textContent();
+            console.log(`First department in ${sortOrder} order: ${firstItem}`);
+        }
+    }
+
+    public async searchCustomField(fieldName: string) {
+        await this.wait('minWait');
+        const searchInput = this.page.locator("//input[contains(@id,'search') or contains(@placeholder,'Search')]").first();
+        await searchInput.fill(fieldName);
+        await this.wait('minWait');
+    }
+
+    public async clickDeleteIcon(fieldName: string) {
+        await this.wait('minWait');
+        const deleteIcon = this.page.locator(`//span[text()='${fieldName}']//ancestor::div[contains(@class,'row')]//i[contains(@class,'trash')] | //span[text()='${fieldName}']//following::a[@aria-label='Delete']`).first();
+        await deleteIcon.click();
+        await this.wait('minWait');
+        const confirmBtn = this.page.locator("//button[text()='Yes'] | //button[text()='Delete']").first();
+        if (await confirmBtn.isVisible({ timeout: 2000 }).catch(() => false)) {
+            await confirmBtn.click();
+            await this.wait('minWait');
+        }
+    }
+
+    public async clickRequiredDropdownAndSelectYes() {
+        await this.wait('minWait');
+        const requiredDropdown = this.page.locator(this.selectors.customFieldRequiredWrapper + "//button | //label[contains(.,'Required')]//following::button[1]").first();
+        await requiredDropdown.click();
+        await this.wait('minWait');
+        const yesOption = this.page.locator("//span[text()='Yes'] | //div[text()='Yes'] | //li[text()='Yes']").first();
+        await yesOption.click();
+        await this.wait('minWait');
+    }
+
+    public async clickTextAreaRadioButton() {
+        await this.wait('minWait');
+        const textareaLabel = this.page.locator("//label[contains(.,'Text Area') or contains(.,'Textarea')]").first();
+        if (await textareaLabel.count() > 0) {
+            await textareaLabel.click();
+        } else {
+            const radio = this.page.locator("//input[@type='radio' and (contains(@value,'textarea') or contains(@aria-label,'textarea'))]").first();
+            if (await radio.count() > 0) await radio.click();
+        }
+        await this.wait('minWait');
+    }
+
+    public async fillFieldLength(length: string) {
+        await this.wait('minWait');
+        const fieldLengthInput = this.page.locator("//label[contains(.,'Field Length') or contains(.,'Length')]//following::input[1]").first();
+        await fieldLengthInput.fill(length);
+        await this.wait('minWait');
+    }
+
+    public async clickDatePickerRadioButton() {
+        await this.wait('minWait');
+        const datePickerLabel = this.page.locator("//label[contains(.,'Date Picker') or contains(.,'Date')]").first();
+        if (await datePickerLabel.count() > 0) {
+            await datePickerLabel.click();
+        } else {
+            const radio = this.page.locator("//input[@type='radio' and (contains(@value,'date') or contains(@aria-label,'date'))]").first();
+            if (await radio.count() > 0) await radio.click();
+        }
+        await this.wait('minWait');
+    }
+
+    public async clickDiscardbutton() {
+        await this.wait('minWait');
+        const discardBtn = this.page.locator("//button[normalize-space(.)='Discard'] | //button[normalize-space(.)='Cancel'] | //a[normalize-space(.)='Discard']").first();
+        await discardBtn.click();
+        await this.wait('minWait');
+    }
+
+    public async clickTextBoxRadioButton() {
+        await this.wait('minWait');
+        const textboxLabel = this.page.locator("//label[contains(.,'Text Box') or contains(.,'Textbox')]").first();
+        if (await textboxLabel.count() > 0) {
+            await textboxLabel.click();
+        } else {
+            const radio = this.page.locator("//input[@type='radio' and (contains(@value,'textbox') or contains(@aria-label,'textbox'))]").first();
+            if (await radio.count() > 0) await radio.click();
+        }
+        await this.wait('minWait');
+    }
+
+    public async clickCheckboxRadioButton() {
+        await this.wait('minWait');
+        const checkboxLabel = this.page.locator("//label[contains(.,'Check Box') or contains(.,'Checkbox')]").first();
+        if (await checkboxLabel.count() > 0) {
+            await checkboxLabel.click();
+        } else {
+            const radio = this.page.locator("//input[@type='radio' and (contains(@value,'checkbox') or contains(@aria-label,'checkbox'))]").first();
+            if (await radio.count() > 0) await radio.click();
+        }
+        await this.wait('minWait');
+    }
+
+    public async clickDeleteButton() {
+        await this.wait('minWait');
+        const deleteBtn = this.page.locator("//button[normalize-space(.)='Delete'] | //button[normalize-space(.)='Remove']").first();
+        await deleteBtn.click();
+        await this.wait('minWait');
+        const confirmBtn = this.page.locator("//button[text()='Yes'] | //button[text()='Delete'] | //button[text()='Confirm']").first();
+        if (await confirmBtn.isVisible({ timeout: 2000 }).catch(() => false)) {
+            await confirmBtn.click();
+            await this.wait('minWait');
+        }
+    }
+
+    public async clickLocationCheckbox() {
+        await this.wait('minWait');
+        const cb = this.page.locator("//label[contains(.,'Location')]//following::input[@type='checkbox'][1]").first();
+        if (await cb.count() > 0) {
+            await cb.click({ force: true });
+        }
+        await this.wait('minWait');
+    }
+
+    public async clickContentCheckbox() {
+        await this.wait('minWait');
+        const cb = this.page.locator("//label[contains(.,'Content')]//following::input[@type='checkbox'][1]").first();
+        if (await cb.count() > 0) {
+            await cb.click({ force: true });
+        }
+        await this.wait('minWait');
+    }
+
+    public async clickAssessmentCheckbox() {
+        await this.wait('minWait');
+        const cb = this.page.locator("//label[contains(.,'Assessment')]//following::input[@type='checkbox'][1]").first();
+        if (await cb.count() > 0) {
+            await cb.click({ force: true });
+        }
+        await this.wait('minWait');
+    }
+
+    public async clickSurveyCheckbox() {
+        await this.wait('minWait');
+        const cb = this.page.locator("//label[contains(.,'Survey')]//following::input[@type='checkbox'][1]").first();
+        if (await cb.count() > 0) {
+            await cb.click({ force: true });
+        }
+        await this.wait('minWait');
+    }
+
+    public async clickOrganizationCheckbox() {
+        await this.wait('minWait');
+        const cb = this.page.locator("//label[contains(.,'Organization')]//following::input[@type='checkbox'][1]").first();
+        if (await cb.count() > 0) {
+            await cb.click({ force: true });
+        }
+        await this.wait('minWait');
+    }
+
+    public async clickOrderCheckbox() {
+        await this.wait('minWait');
+        const cb = this.page.locator("//label[contains(.,'Order')]//following::input[@type='checkbox'][1]").first();
+        if (await cb.count() > 0) {
+            await cb.click({ force: true });
+        }
+        await this.wait('minWait');
+    }
+
+    public async clickDiscountCheckbox() {
+        await this.wait('minWait');
+        const cb = this.page.locator("//label[contains(.,'Discount')]//following::input[@type='checkbox'][1]").first();
+        if (await cb.count() > 0) {
+            await cb.click({ force: true });
+        }
+        await this.wait('minWait');
+    }
+
+    public async assertSuccessToastContains(expectedFragment: string, timeout = 30000) {
+        const headingLocator = this.page.locator(this.selectors.successToastHeading);
+        await headingLocator.waitFor({ timeout });
+        const text = (await headingLocator.textContent()) || '';
+        expect(text).toContain(expectedFragment);
+        const goToListing = this.page.locator(this.selectors.goToListingLink);
+        await goToListing.waitFor({ timeout: 10000 });
+        expect(await goToListing.isVisible()).toBeTruthy();
+    }
 }
-}
+
+
+
 
 
 

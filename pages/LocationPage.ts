@@ -444,7 +444,29 @@ public async clickOkButton() {
     //listingPageXpath
 }
 
+// ===== Custom Field Related Functions =====
+
+async verifyCustomFieldLabelWithHashSymbol(customFieldName: string) {
+    await this.wait('minWait');
+    const labelWithHash = this.page.locator(`//label[contains(.,'${customFieldName}')]//span[text()='#'] | //label[contains(.,'${customFieldName}') and contains(.,'#')]`).first();
+    await labelWithHash.waitFor({ state: 'visible', timeout: 10000 });
+    const isVisible = await labelWithHash.isVisible();
+    expect(isVisible).toBeTruthy();
+    console.log(`✓ Custom field "${customFieldName}" appears with # symbol (mandatory indicator)`);
+}
+
+async verifyMandatoryCustomFieldValidation(customFieldName: string) {
+    await this.wait('minWait');
+    const validationError = this.page.locator(`//label[contains(.,'${customFieldName}')]//following::span[contains(@class,'error') or contains(@class,'validation') or contains(text(),'required') or contains(text(),'mandatory')] | //div[contains(@class,'error') and contains(.,'${customFieldName}')] | //span[contains(text(),'${customFieldName}') and (contains(text(),'required') or contains(text(),'mandatory'))]`).first();
+    await validationError.waitFor({ state: 'visible', timeout: 10000 });
+    const isVisible = await validationError.isVisible();
+    expect(isVisible).toBeTruthy();
+    console.log(`✓ Mandatory field validation displayed for "${customFieldName}"`);
+}
+
 
 }
+
+
 
 
