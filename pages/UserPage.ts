@@ -1,5 +1,9 @@
 import { URLConstants } from "../constants/urlConstants";
 import { filePath } from "../data/MetadataLibraryData/filePathEnv";
+import * as fs from 'fs';
+import * as path from 'path';
+import Papa from 'papaparse';
+
 import {
   FakerData,
   getCurrentDateFormatted,
@@ -12,6 +16,9 @@ import { BrowserContext, Page, expect } from "@playwright/test";
 export class UserPage extends AdminHomePage {
   public selectors = {
     ...this.selectors,
+    bulkUploadButton:"//span[text()='BULK UPLOAD']",
+    uploadInputButton: "//input[@type='file']",
+    fileUploadSubmitButton: "//button[text()='Upload'] | //button[text()='Submit']",
     createUserbtn: `//button[text()='CREATE USER']`,
     createUserLabel: "//h1[text()='Create User']",
     editUserLabel: "//h1[text()='Edit User']",
@@ -140,6 +147,8 @@ export class UserPage extends AdminHomePage {
       "CreateButton"
     );
     await this.click(this.selectors.createUserbtn, "Create User", "Button");
+    await this.spinnerDisappear();
+    await this.wait("minWait");
   }
 
   async enter(name: string, data: string) {
@@ -594,4 +603,77 @@ export class UserPage extends AdminHomePage {
     // );
     await this.click(this.selectors.editIcon, "customeradmin", "edit");
   }
+
+  public async userBulkUpload(): Promise<string> {
+    try {
+        // // Step 1: Navigate Menu > People > User
+        // const menu = this.page.locator(this.selectors.menuPeopleUser);
+        // await menu.click();
+
+        // Step 2: Click bulk upload button
+        const bulkUploadBtn = this.page.locator(this.selectors.bulkUploadButton);
+        await bulkUploadBtn.waitFor({ state: 'visible' });
+        await bulkUploadBtn.click();
+
+        // Step 3: Upload CSV file
+        const fileChooserPromise = this.page.waitForEvent('filechooser');
+
+        // FIXED: Using your correct XPath
+        await this.page.click("//label[text()='click']");
+
+        const fileChooser = await fileChooserPromise;
+
+        const csvFilePath = path.join(__dirname, '../data/userBulkUpload_Automation.csv');
+        await fileChooser.setFiles(csvFilePath);
+
+        // Step 4: Click upload submit button
+        const uploadBtn = this.page.locator(this.selectors.fileUploadSubmitButton);
+        await uploadBtn.waitFor({ state: 'visible' });
+        await uploadBtn.click();
+
+        // Step 5: Read only required CSV fields
+        const csv = await fs.promises.readFile(csvFilePath, "utf8");
+        const rows = Papa.parse(csv, { header: true }).data;
+
+        const requiredData = rows.map((row: any) => ({
+            username: row.username,
+            firstname: row.firstname,
+            lastname: row.lastname,
+            password: row.password,
+            email: row.email,
+            status: row.status
+        }));
+
+        // Step 6: Delete users for next-run duplicate issue
+        for (const user of requiredData) {
+
+            const searchBox = this.page.locator('//input[@id="exp-search-field"]');
+            await searchBox.fill(user.username);
+
+            const deleteBtn = this.page.locator('//i[@class="fa-duotone fa-trash-can icon_14_6 pointer"]');
+            await deleteBtn.click();
+
+            const confirmBtn = this.page.locator("//button[text()='Delete']");
+            await confirmBtn.click();
+
+            // Verify deleted
+            await searchBox.fill(user.username);
+
+            const result = await this.page.locator("//table//tr").count();
+
+            if (result > 0) {
+                throw new Error(`Delete verification failed for ${user.username}`);
+            }
+        }
+
+        return Promise.resolve("User bulk upload and delete verification success");
+
+    } catch (error: any) {
+        return Promise.reject(`User bulk upload failed: ${error}`);
+    }
 }
+
+
+}
+
+
