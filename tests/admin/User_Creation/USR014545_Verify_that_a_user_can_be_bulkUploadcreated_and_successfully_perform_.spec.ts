@@ -6,6 +6,8 @@ import data from '../../../data/adminGroupsData.json'
 
 
 const username = FakerData.getUserId();
+const bulkUploadUsers = ['manikandanbus', 'balasundarbus', 'Tamilvananbus'];
+
 test(`Verify_that_admin_able_to_create_and_set_direct_report_to_assigned_manager`, async ({ adminHome, createUser ,createCourse}) => {
     test.info().annotations.push(
         { type: `Author`, description: `Vidya` },
@@ -16,7 +18,14 @@ test(`Verify_that_admin_able_to_create_and_set_direct_report_to_assigned_manager
     await adminHome.menuButton();
     await adminHome.people();
     await adminHome.user();
+
     //await createUser.clickCreateUser();
     await createUser.userBulkUpload();
-
+    // Delete the created users
+    for (const userName of bulkUploadUsers) {
+        await createUser.userSearchField(userName);
+        await createUser.clickDeleteIcon();
+        await createUser.verifyDeletedUser();
+    }
     })
+    

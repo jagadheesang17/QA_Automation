@@ -44,7 +44,7 @@ test.describe('CH015: Manager Approval - Reject Course Request and Verify Detail
     console.log(`✓ Course created successfully: ${courseName}`);
 
     // Logout admin
-    await learnerHome.clickSignOutAndVerify();
+    await adminHome.adminSignout(adminHome.page);
     console.log(`✓ Admin logged out`);
 
     console.log(`\n========== STEP 2: LEARNER REQUESTS COURSE APPROVAL ==========`);

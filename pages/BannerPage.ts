@@ -34,6 +34,26 @@ export class BannerPage extends AdminHomePage {
         okButton:`//button[text()='OK']`,
         randomDate: `(//td[@class='day']/following-sibling::td)[1]`,
         nextMonth: `//div[@class='datepicker-days']//th[@class='next']`,
+        //pageBuilder selectors
+        bannerTitlecheckbox:`//a[text()='Show Title']`,
+        learnerPageBuilderMenu:`//span[text()='Learner Page Builder']`,
+        bannerRadioButton:`//h1[text()='Banner/Learner Engagement Console']`,
+        editTemplateButton:`//button[text()='Edit Template']`,
+        lastDomainButton:`(//button[@aria-controls="nav-home"])[last()]`,
+        cloneIconbutton:`//a[@aria-label='Clone']/i`,
+        unpublishIcon: `(//a[@aria-label='Unpublish']/i)[1]`,
+        confirmUnpublish: `//button[text()='OK']`,
+        successMessage: `//div[contains(@class,'success') or contains(@class,'alert')]//span | //span[contains(text(),'Successfully')]`,
+        publishedTab: `//button[text()='Published']`,
+        bannerInListing: (title: string) => `//div[contains(text(),'${title}')] | //td[contains(text(),'${title}')] | //span[contains(text(),'${title}')]`,
+        searchField: `//input[@id='exp-search-field']`,
+        noResultsMessage: `//h3[text()='There are no results that match your current filters. Try removing some of them to get better results.']`,
+        invalidUrlErrorMessage: `//span[contains(text(),'Invalid URL') or contains(text(),'invalid url') or contains(text(),'Please enter a valid URL')] | //div[contains(@class,'error')]//span[contains(text(),'URL')]`,
+        unsupportedFileErrorMessage: `//span[contains(text(),'unsupported') or contains(text(),'Unsupported') or contains(text(),'invalid file') or contains(text(),'Invalid file')] | //div[contains(@class,'error')]//span | //span[@class='help-block']`,
+        disabledDates: `//td[contains(@class,'disabled') and contains(@class,'day')]`,
+        tooltip: `//div[contains(@class,'tooltip') or @role='tooltip']`,
+        changelogIcon: `//i[contains(@class,'fa-history') or contains(@class,'history')] | //a[contains(@aria-label,'History') or contains(@aria-label,'Changelog')]`,
+        changelogModal: `//div[contains(@class,'modal')]//h3[contains(text(),'Change Log') or contains(text(),'History')]`,
 
     };
 
@@ -122,4 +142,92 @@ export class BannerPage extends AdminHomePage {
      await this.verification(this.selectors.modalDialog,"deleted")
      await this.click(this.selectors.okButton,"OK","Button")
    }
+   
+    public async enableBannerTitle() {
+        await this.validateElementVisibility(this.selectors.bannerTitlecheckbox, "Show Title Checkbox");
+        await this.click(this.selectors.bannerTitlecheckbox, "Show Title", "Checkbox");
+    }
+
+    public async disableBannerTitle() {
+        await this.validateElementVisibility(this.selectors.bannerTitlecheckbox, "Show Title Checkbox");
+        await this.click(this.selectors.bannerTitlecheckbox, "Show Title", "Checkbox");
+    }
+
+    public async enableBannerRadioButton() {
+        await this.validateElementVisibility(this.selectors.bannerRadioButton, "Banner Radio Button");
+        await this.click(this.selectors.bannerRadioButton, "Banner/Learner Engagement Console", "Radio Button");
+    }
+
+    public async disableBannerRadioButton() {
+        await this.validateElementVisibility(this.selectors.bannerRadioButton, "Banner Radio Button");
+        await this.click(this.selectors.bannerRadioButton, "Banner/Learner Engagement Console", "Radio Button");
+    }
+
+    public async clickLastDomain() {
+        await this.validateElementVisibility(this.selectors.lastDomainButton, "Last Domain Button");
+        await this.click(this.selectors.lastDomainButton, "Last Domain", "Button");
+    }
+
+    public async clickEditTemplateButton() {
+        await this.validateElementVisibility(this.selectors.editTemplateButton, "Edit Template Button");
+        await this.click(this.selectors.editTemplateButton, "Edit Template", "Button");
+    }
+
+    public async enableBannerTitleInSiteSettings() {
+        // Click Site Settings
+        await this.siteSettings();
+        await this.wait("minWait");
+        
+        // Click Learner Page Builder
+        await this.validateElementVisibility(this.selectors.learnerPageBuilderMenu, "Learner Page Builder");
+        await this.click(this.selectors.learnerPageBuilderMenu, "Learner Page Builder", "Menu");
+        await this.wait("minWait");
+        
+        // Click Last Domain
+        await this.clickLastDomain();
+        await this.wait("minWait");
+        
+        // Click Edit Template
+        await this.clickEditTemplateButton();
+        await this.wait("minWait");
+        
+        // Click Enable Banner Radio Button
+        await this.enableBannerRadioButton();
+        await this.wait("minWait");
+        
+        // Enable Banner Title Checkbox
+        await this.enableBannerTitle();
+        await this.wait("minWait");
+    }
+
+    public async clickCloneButton() {
+        await this.validateElementVisibility(this.selectors.cloneIconbutton, "Clone Button");
+        await this.click(this.selectors.cloneIconbutton, "Clone", "Button");
+    }
+
+    public async clickUnpublishIcon() {
+        await this.validateElementVisibility(this.selectors.unpublishIcon, "Unpublish Icon");
+        await this.click(this.selectors.unpublishIcon, "Unpublish", "Icon");
+    }
+
+    public async clickOkButton() {
+        await this.validateElementVisibility(this.selectors.okButton, "OK Button");
+        await this.click(this.selectors.okButton, "OK", "Button");
+    }
+
+    public async clickPublishedTab() {
+        await this.validateElementVisibility(this.selectors.publishedTab, "Published Tab");
+        await this.click(this.selectors.publishedTab, "Published", "Tab");
+    }
+
+    public async verifySuccessMessage(expectedMessage: string) {
+        await this.validateElementVisibility(this.selectors.successMessage, "Success Message");
+        const actualMessage = await this.page.locator(this.selectors.successMessage).textContent();
+        if (actualMessage?.includes(expectedMessage)) {
+            console.log(`✓ Success message verified: ${actualMessage}`);
+        } else {
+            console.log(`⚠ Expected message not found. Actual: ${actualMessage}`);
+        }
+    }
+
 }

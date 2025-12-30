@@ -15,7 +15,6 @@ test.describe(`Portal Based Banner Display`, async () => {
             { type: `Test Description`, description: `Verify that banner is created` }
         );
 
-
         await adminHome.loadAndLogin("CUSTOMERADMIN")
         await adminHome.menuButton();
         await adminHome.clickCommunicationLink()

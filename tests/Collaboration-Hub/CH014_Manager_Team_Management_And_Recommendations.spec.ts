@@ -143,124 +143,125 @@ test.describe('CH014: Manager Hub - Team Management and Recommendation Tests', a
 
 
   
-  // test('10. Verify Manager able to reject the user requesting external training certificate', async ({ learnerHome, profile, adminHome, createUser }) => {
-  //   test.info().annotations.push(
-  //     { type: 'Author', description: 'Manikandan' },
-  //     { type: 'TestCase', description: 'CH014-10 - Verify Manager Rejects External Training Certificate' },
-  //     { type: 'Test Description', description: 'Learner adds external training certificate for manager verification, then manager logs in and rejects the certificate request' }
-  //   );
-  //   const managerUsername = data.managerName; // Manager who will reject
-  //   const certificateTitle = FakerData.getcertificationTitle();
-  //   const organizationName = FakerData.getOrganizationName();
+  test('10. Verify Manager able to reject the user requesting external training certificate', async ({ learnerHome, profile, adminHome, createUser }) => {
+    test.info().annotations.push(
+      { type: 'Author', description: 'Manikandan' },
+      { type: 'TestCase', description: 'CH014-10 - Verify Manager Rejects External Training Certificate' },
+      { type: 'Test Description', description: 'Learner adds external training certificate for manager verification, then manager logs in and rejects the certificate request' }
+    );
+    const managerUsername = data.managerName; // Manager who will reject
+    const certificateTitle = FakerData.getcertificationTitle();
+    const organizationName = FakerData.getOrganizationName();
 
-  //   console.log(`\n========== STEP 1: LEARNER ADDS EXTERNAL TRAINING CERTIFICATE ==========`);
-  //   // Step 1: Login as Learner and add external training certificate
-  //   await learnerHome.learnerLogin("TEAMUSER1", "DefaultPortal");
-  //   await profile.clickProfile();
-  //   await learnerHome.page.waitForTimeout(1000);
-  //   await profile.detailsTab();
-  //   console.log(`✓ Navigated to Profile Details tab`);
+    console.log(`\n========== STEP 1: LEARNER ADDS EXTERNAL TRAINING CERTIFICATE ==========`);
+    // Step 1: Login as Learner and add external training certificate
+    await learnerHome.learnerLogin("TEAMUSER1", "DefaultPortal");
+    await profile.clickProfile();
+    await learnerHome.page.waitForTimeout(1000);
+    await profile.detailsTab();
+    console.log(`✓ Navigated to Profile Details tab`);
     
-  //   // Add external training certificate for manager verification
-  //   await profile.certificateVerificationbyManager(managerUsername);
-  //   console.log(`✓ Added external training certificate: ${certificateTitle}`);
-  //   console.log(`✓ Set for manager verification: ${managerUsername}`);
+    // Add external training certificate for manager verification
+    await profile.certificateVerificationbyManager(managerUsername);
+    console.log(`✓ Added external training certificate: ${certificateTitle}`);
+    console.log(`✓ Set for manager verification: ${managerUsername}`);
     
-  //   // Save the certificate
-  //   await profile.clickSave();
-  //   await learnerHome.page.waitForTimeout(2000);
-  //   await profile.verifySavedChanges();
-  //   console.log(`✓ Certificate saved successfully`);
+    // Save the certificate
+    await profile.clickSave();
+    await learnerHome.page.waitForTimeout(2000);
+    await profile.verifySavedChanges();
+    console.log(`✓ Certificate saved successfully`);
     
-  //   // Logout learner
-  //   await learnerHome.clickSignOut();
-  //   console.log(`✓ Learner logged out`);
+    // Logout learner
+    await profile.click(learnerHome.selectors.signOutLink, "Sign Out", "Link");
+    await learnerHome.page.waitForTimeout(2000);
+    console.log(`✓ Learner logged out`);
 
-  //   console.log(`\n========== STEP 2: MANAGER NAVIGATES TO MY APPROVAL ==========`);
-  //   // Step 2: Login as Manager
-  //   await learnerHome.learnerLogin("MANAGERNAME", "DefaultPortal");
-  //   await learnerHome.page.waitForTimeout(2000);
-  //   console.log(`✓ Logged in as Manager`);
+    console.log(`\n========== STEP 2: MANAGER NAVIGATES TO MY APPROVAL ==========`);
+    // Step 2: Login as Manager
+    await learnerHome.learnerLogin("MANAGERNAME", "DefaultPortal");
+    await learnerHome.page.waitForTimeout(2000);
+    console.log(`✓ Logged in as Manager`);
     
-  //   // Navigate to My Approval section
-  //   const myApprovalTab = learnerHome.page.locator("//a[contains(text(),'My Approval')] | //span[contains(text(),'My Approval')] | //button[contains(text(),'My Approval')]");
-  //   const isMyApprovalVisible = await myApprovalTab.isVisible().catch(() => false);
+    // Navigate to My Approval section
+    const myApprovalTab = learnerHome.page.locator("//a[contains(text(),'My Approval')] | //span[contains(text(),'My Approval')] | //button[contains(text(),'My Approval')]");
+    const isMyApprovalVisible = await myApprovalTab.isVisible().catch(() => false);
     
-  //   if (isMyApprovalVisible) {
-  //     await myApprovalTab.click();
-  //     await learnerHome.page.waitForTimeout(2000);
-  //     console.log(`✓ Navigated to My Approval section`);
-  //     console.log(`\n========== STEP 3: MANAGER REJECTS EXTERNAL TRAINING CERTIFICATE ==========`);
-  //     // Step 3: Find and reject the external training certificate request
-  //     const externalTrainingRequest = learnerHome.page.locator(`(//div[contains(text(),'External Training')] | //span[contains(text(),'External Training')] | //td[contains(text(),'${certificateTitle}')])[1]`);
-  //     const isRequestVisible = await externalTrainingRequest.isVisible().catch(() => false);
+    if (isMyApprovalVisible) {
+      await myApprovalTab.click();
+      await learnerHome.page.waitForTimeout(2000);
+      console.log(`✓ Navigated to My Approval section`);
+      console.log(`\n========== STEP 3: MANAGER REJECTS EXTERNAL TRAINING CERTIFICATE ==========`);
+      // Step 3: Find and reject the external training certificate request
+      const externalTrainingRequest = learnerHome.page.locator(`(//div[contains(text(),'External Training')] | //span[contains(text(),'External Training')] | //td[contains(text(),'${certificateTitle}')])[1]`);
+      const isRequestVisible = await externalTrainingRequest.isVisible().catch(() => false);
       
-  //     if (isRequestVisible) {
-  //       console.log(`✓ Found external training certificate request`);
+      if (isRequestVisible) {
+        console.log(`✓ Found external training certificate request`);
         
-  //       // Click reject button for the external training
-  //       const rejectButton = learnerHome.page.locator("(//button[contains(text(),'Reject')] | //span[contains(text(),'Reject')] | //a[contains(text(),'Reject')])[1]");
-  //       const isRejectButtonVisible = await rejectButton.isVisible().catch(() => false);
+        // Click reject button for the external training
+        const rejectButton = learnerHome.page.locator("(//button[contains(text(),'Reject')] | //span[contains(text(),'Reject')] | //a[contains(text(),'Reject')])[1]");
+        const isRejectButtonVisible = await rejectButton.isVisible().catch(() => false);
         
-  //       if (isRejectButtonVisible) {
-  //         await rejectButton.click();
-  //         await learnerHome.page.waitForTimeout(1000);
-  //         console.log(`✓ Clicked Reject button`);
+        if (isRejectButtonVisible) {
+          await rejectButton.click();
+          await learnerHome.page.waitForTimeout(1000);
+          console.log(`✓ Clicked Reject button`);
           
-  //         // Enter reject reason
-  //         const rejectReasonField = learnerHome.page.locator("//textarea[@id='reject-reason'] | //input[@id='reject-reason'] | //textarea[contains(@placeholder,'reason')] | //textarea[contains(@name,'reason')]");
-  //         const isReasonFieldVisible = await rejectReasonField.isVisible().catch(() => false);
+          // Enter reject reason
+          const rejectReasonField = learnerHome.page.locator("//textarea[@id='reject-reason'] | //input[@id='reject-reason'] | //textarea[contains(@placeholder,'reason')] | //textarea[contains(@name,'reason')]");
+          const isReasonFieldVisible = await rejectReasonField.isVisible().catch(() => false);
           
-  //         if (isReasonFieldVisible) {
-  //           const rejectReason = 'Certificate does not meet company standards for external training verification';
-  //           await rejectReasonField.fill(rejectReason);
-  //           await learnerHome.page.waitForTimeout(500);
-  //           console.log(`✓ Entered reject reason: ${rejectReason}`);
+          if (isReasonFieldVisible) {
+            const rejectReason = 'Certificate does not meet company standards for external training verification';
+            await rejectReasonField.fill(rejectReason);
+            await learnerHome.page.waitForTimeout(500);
+            console.log(`✓ Entered reject reason: ${rejectReason}`);
             
-  //           // Submit rejection
-  //           const submitButton = learnerHome.page.locator("//button[contains(text(),'Submit')] | //button[contains(text(),'Reject')] | //button[contains(text(),'Confirm')]");
-  //           const isSubmitVisible = await submitButton.isVisible().catch(() => false);
+            // Submit rejection
+            const submitButton = learnerHome.page.locator("//button[contains(text(),'Submit')] | //button[contains(text(),'Reject')] | //button[contains(text(),'Confirm')]");
+            const isSubmitVisible = await submitButton.isVisible().catch(() => false);
             
-  //           if (isSubmitVisible) {
-  //             await submitButton.click();
-  //             await learnerHome.page.waitForTimeout(2000);
-  //             console.log(`✓ Submitted rejection`);
+            if (isSubmitVisible) {
+              await submitButton.click();
+              await learnerHome.page.waitForTimeout(2000);
+              console.log(`✓ Submitted rejection`);
               
-  //             // Verify rejection success message or confirmation
-  //             const successMessage = learnerHome.page.locator("//span[contains(text(),'reject')] | //span[contains(text(),'success')] | //div[contains(text(),'reject')]");
-  //             const isSuccessVisible = await successMessage.isVisible().catch(() => false);
+              // Verify rejection success message or confirmation
+              const successMessage = learnerHome.page.locator("//span[contains(text(),'reject')] | //span[contains(text(),'success')] | //div[contains(text(),'reject')]");
+              const isSuccessVisible = await successMessage.isVisible().catch(() => false);
               
-  //             if (isSuccessVisible) {
-  //               const messageText = await successMessage.textContent();
-  //               console.log(`✓ Rejection confirmation: ${messageText}`);
+              if (isSuccessVisible) {
+                const messageText = await successMessage.textContent();
+                console.log(`✓ Rejection confirmation: ${messageText}`);
                 
-  //               // Close confirmation popup if exists
-  //               const okButton = learnerHome.page.locator("//button[text()='OK'] | //button[text()='Close'] | //button[text()='Yes']");
-  //               if (await okButton.isVisible()) {
-  //                 await okButton.click();
-  //               }
-  //             }
+                // Close confirmation popup if exists
+                const okButton = learnerHome.page.locator("//button[text()='OK'] | //button[text()='Close'] | //button[text()='Yes']");
+                if (await okButton.isVisible()) {
+                  await okButton.click();
+                }
+              }
               
-  //             expect(true).toBeTruthy();
-  //             console.log(`✓ Manager successfully rejected the external training certificate request`);
-  //           } else {
-  //             console.log(`⚠ Submit button not found`);
-  //           }
-  //         } else {
-  //           console.log(`⚠ Reject reason field not found - rejection may have been direct`);
-  //         }
-  //       } else {
-  //         console.log(`⚠ Reject button not visible for external training request`);
-  //       }
-  //     } else {
-  //       console.log(`⚠ No external training certificate request found in My Approval`);
-  //     }
-  //   } else {
-  //     console.log(`⚠ My Approval tab not found`);
-  //   }
+              expect(true).toBeTruthy();
+              console.log(`✓ Manager successfully rejected the external training certificate request`);
+            } else {
+              console.log(`⚠ Submit button not found`);
+            }
+          } else {
+            console.log(`⚠ Reject reason field not found - rejection may have been direct`);
+          }
+        } else {
+          console.log(`⚠ Reject button not visible for external training request`);
+        }
+      } else {
+        console.log(`⚠ No external training certificate request found in My Approval`);
+      }
+    } else {
+      console.log(`⚠ My Approval tab not found`);
+    }
     
-  //   console.log('\n========== TEST COMPLETED ==========');
-  // });
+    console.log('\n========== TEST COMPLETED ==========');
+  });
 
   // test('11. Verify course can be recommended to the entire team', async ({ adminHome, createCourse, learnerHome, managerHome }) => {
   //   test.info().annotations.push(
@@ -513,7 +514,8 @@ test.describe('CH014: Manager Hub - Team Management and Recommendation Tests', a
     }
     
     // Logout learner and wait for logout to complete
-    await learnerHome.clickSignOutAndVerify();
+    await profile.click(learnerHome.selectors.signOutLink, "Sign Out", "Link");
+    await learnerHome.page.waitForTimeout(2000);
     console.log(`✓ Learner logged out`);
 
     console.log(`\n========== STEP 2: MANAGER NAVIGATES TO MY APPROVAL ==========`);

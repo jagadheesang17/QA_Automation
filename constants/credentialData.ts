@@ -12,7 +12,7 @@ switch (environmentSetup) {
   case "automation":
     credentials = {
       CUSTOMERADMIN: {
-        username: "customadmin",
+        username: "newprod1@nomail.com",
         password: "Welcome1@",
       },
       LEARNERADMIN: {
@@ -28,8 +28,8 @@ switch (environmentSetup) {
         password: "Welcome1@",
       },
       LEARNERUSERNAME: {
-        username: "learneruser1",
-        password: "Welcome1@",
+        username: "learnerone",
+        password: "welcome",
       },
       COMMERCEADMIN: {
         username: "commerceadmin",

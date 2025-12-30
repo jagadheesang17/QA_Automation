@@ -69,6 +69,40 @@ export class LearnerHomePage extends LearnerLogin {
         await this.isSignOutVisible()
 
     }
+    public async  learnerSignout(page: Page) {
+    const signoutButton = page.locator('//i[@class="fa-duotone fa-power-off mandatory pointer"]');
+    await signoutButton.click();
+    }
+    public async  clickAboutEditIcon(page: Page) {
+    const icon = page.locator("//h5[text()='about']/following::i[@class='test fa-duotone fa-pencil pointer icon_16_1']");
+    await icon.click();
+    }
+    public async nameAndDetailsEdit(page: Page) {
+    const editIcon = page.locator("//h5[text()='Name and Details']/following-sibling::i[@class='test fa-duotone fa-pencil pointer icon_16_1'][1]");
+    await editIcon.click();
+    }
+    public async  uploadProfileImage(page: Page) {
+    const fileInput = page.locator("#userfiles");
+    await fileInput.setInputFiles("data/profileimage.jpg");
+    }
+
+    public async clickUploadButton(page: Page) {
+    const uploadButton = page.locator("//button[text()='Upload']");
+    await uploadButton.click();
+}
+    public async clickSaveButton(page: Page) {
+    const saveButton = page.locator("//button[text()='Save']");
+    await saveButton.click();
+    }
+    public async  profileUploadSuccessMessage(page: Page) {
+    const successMessage = page.locator("//span[text()='Your changes have been saved']");
+    await successMessage.waitFor({ state: "visible" });
+}
+public async  clickRemoveImage(page: Page) {
+    const removeImageButton = page.locator("//label[text()='Remove image']");
+    await removeImageButton.click();
+}
+
     public async isSignOutVisible() {
         await this.page.waitForLoadState('load');
         await this.validateElementVisibility(this.selectors.signOutLink, "Sign Out");

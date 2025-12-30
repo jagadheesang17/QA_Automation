@@ -109,11 +109,19 @@ export class AdminHomePage extends AdminLogin {
             console.log("Page Title after login:", pageTitle);
         }
     }
+    
 
     public async isSignOut() {
         await this.validateElementVisibility(this.selectors.signOutLink, "Sign Out");
         await this.page.waitForLoadState('load');
     }
+
+    public async  adminSignout(page: Page) {
+    const signoutButton = page.locator('//div[@class="logout"]');
+    await signoutButton.waitFor({ state: 'visible' });
+    await signoutButton.click();
+    }
+
 
     public async clickMenu(menu: string) {
         await this.wait("minWait");
@@ -389,6 +397,77 @@ export class AdminHomePage extends AdminLogin {
             await this.click(this.selectors.adminConfigLink, "Admin Configuration", "Button");
             await this.spinnerDisappear();
         }
+        async clickEditIconOneProfile() {
+        const editIcon = this.page.locator('//i[@data-bs-target="#ONEProfile-content"]');
+        await editIcon.waitFor({ state: 'visible' });
+        await editIcon.click();
+}
+
+        async oneProfileAdminEnable() {
+        // Radio button for ONE-Profile under Additional Features
+        const oneProfileRadio = this.page.locator(
+        "((//span[text()='Additional Features'])[1]//following::*[text()='ONE-Profile'])[1]//input[@type='radio']"
+        );
+
+        // Ensure element is visible
+        await oneProfileRadio.waitFor({ state: "visible" });
+
+        // Check current state
+        const isChecked = await oneProfileRadio.isChecked();
+
+        // If disabled (NOT checked), enable it
+        if (!isChecked) {
+        await oneProfileRadio.click();
+        }
+        // If already enabled, maintain the state (do nothing)
+        }
+        async oneprofileLearnerEnable() {
+        // Locator for ONE-Profile radio button
+        const radioBtn = this.page.locator("//span[text()='Social']/following::*[text()='ONE-Profile']");
+
+        // Wait until element is visible
+        await radioBtn.waitFor({ state: "visible" });
+
+        // Check radio button state
+        const isChecked = await radioBtn.isChecked?.() || 
+                      await radioBtn.getAttribute("aria-checked") === "true";
+
+        // If already enabled → disable it → enable again
+        if (isChecked) {
+        console.log("Radio is already enabled. Disabling and enabling again...");
+        await radioBtn.click(); // disable
+        await this.page.waitForTimeout(500);
+        await radioBtn.click(); // enable
+        } 
+        else {
+        console.log("Radio is disabled. Enabling now...");
+        await radioBtn.click();
+        }
+    }
+
+    async oneprofileLearnerDisable() {
+        // Locator for ONE-Profile radio button under Social section
+        const radioBtn = this.page.locator("//span[text()='Social']/following::*[text()='ONE-Profile']");
+
+        // Wait until element is visible
+        await radioBtn.waitFor({ state: "visible" });
+
+        // Check radio button state
+        const isChecked = await radioBtn.isChecked?.() || 
+                      await radioBtn.getAttribute("aria-checked") === "true";
+
+        // If enabled, disable it
+        if (isChecked) {
+            console.log("ONE-Profile is enabled. Disabling now...");
+            await radioBtn.click(); // disable
+            await this.page.waitForTimeout(500);
+            console.log("✓ ONE-Profile disabled successfully");
+        } 
+        else {
+            console.log("ONE-Profile is already disabled");
+        }
+    }
+
 
         async clearBrowserCache(url: string) {
             const baseUrl = await this.getBaseUrl(url)

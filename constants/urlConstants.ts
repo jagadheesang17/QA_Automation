@@ -4,7 +4,7 @@ export let URLConstants: any
 switch (environmentSetup) {
     case "automation":
         URLConstants = {
-            adminURL: "https://qaautomation.expertusoneqa.cloud/backdoor",
+            adminURL: "https://newprod1.expertusoneqa.in/admin/backdoor",
             leanerURL: "https://automation.expertusoneqa.in/learner/e1internal/",
             learnerportal: "https://automation.expertusoneqa.in/learner/learnerportal/",
             learnerportal2: "https://automation.expertusoneqa.in/learner/learnerportal2/",

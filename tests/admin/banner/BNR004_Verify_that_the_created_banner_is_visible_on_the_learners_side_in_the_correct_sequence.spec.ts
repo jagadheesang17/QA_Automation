@@ -11,7 +11,6 @@ test.describe(`Verify Banner is edited`, async () => {
             { type: `TestCase`, description: `Verify banner in sequence` },
             { type: `Test Description`, description: `Verify that banner is created` }
         );
-
         await adminHome.loadAndLogin("CUSTOMERADMIN")
         await adminHome.menuButton();
         await adminHome.clickCommunicationLink()

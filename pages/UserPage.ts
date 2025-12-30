@@ -3,6 +3,10 @@ import { filePath } from "../data/MetadataLibraryData/filePathEnv";
 import * as fs from 'fs';
 import * as path from 'path';
 import Papa from 'papaparse';
+import Jimp from "jimp-compact";
+
+//import Jimp from "jimp";
+import QrCode from "qrcode-reader";
 
 import {
   FakerData,
@@ -121,6 +125,8 @@ export class UserPage extends AdminHomePage {
     //for contact support email
     customerAdminUserFromDropdown: `//li[contains(text(),'Arivazhagan P (arivazhaganp)')]`,
     checkContactSupport: `//input[@id='course-contact-support']`,
+    //user profile
+    userQRImageXpath:`(//div[text()='Scan QR to view ONE-Profile'])[1]/following::img[1]`,
   };
 
   constructor(page: Page, context: BrowserContext) {
@@ -562,6 +568,30 @@ export class UserPage extends AdminHomePage {
     );
   }
 
+  async myProfileSection(page: Page) {
+  const target = page.locator("//h1[text()='My Profile']");
+
+  // Try scrolling multiple times until the element becomes visible
+  for (let i = 0; i < 40; i++) {
+    // Check if visible already
+    if (await target.isVisible().catch(() => false)) {
+      console.log("My Profile section found at bottom!");
+      await target.scrollIntoViewIfNeeded();
+      return;
+    }
+
+    // Scroll down towards bottom
+    await page.evaluate(() => {
+      window.scrollBy(0, window.innerHeight); // Scroll by one full screen
+    });
+
+    await page.waitForTimeout(400); // Small wait for content to load
+  }
+
+  throw new Error("Unable to find 'My Profile' section even at page bottom.");
+}
+
+
   async verifyUserAddress() {
     await this.wait("minWait");
     let message = await this.getInnerText(
@@ -604,7 +634,7 @@ export class UserPage extends AdminHomePage {
     await this.click(this.selectors.editIcon, "customeradmin", "edit");
   }
 
-  public async userBulkUpload(): Promise<string> {
+  async  userBulkUpload(): Promise<string> {
     try {
         // // Step 1: Navigate Menu > People > User
         // const menu = this.page.locator(this.selectors.menuPeopleUser);
@@ -625,7 +655,6 @@ export class UserPage extends AdminHomePage {
 
         const csvFilePath = path.join(__dirname, '../data/userBulkUpload_Automation.csv');
         await fileChooser.setFiles(csvFilePath);
-
         // Step 4: Click upload submit button
         const uploadBtn = this.page.locator(this.selectors.fileUploadSubmitButton);
         await uploadBtn.waitFor({ state: 'visible' });
@@ -672,8 +701,39 @@ export class UserPage extends AdminHomePage {
         return Promise.reject(`User bulk upload failed: ${error}`);
     }
 }
-
-
 }
+
+ async function readAndClickQRCode(page: Page, userQRImageXpath: string) {
+  // Step 1: Screenshot the QR image element
+  const qrElement = page.locator(userQRImageXpath);
+  await qrElement.waitFor({ state: 'visible' });
+
+  const qrBuffer = await qrElement.screenshot();
+
+  // Step 2: Decode QR code using Jimp + qrcode-reader
+  const image = await Jimp.read(qrBuffer);
+  
+  const qrValue: string = await new Promise((resolve, reject) => {
+    const qr = new QrCode();
+    qr.callback = (err, value) => {
+      if (err) reject(err);
+      else resolve(value.result);
+    };
+    qr.decode(image.bitmap);
+  });
+
+  console.log("QR Value:", qrValue);
+
+  // Step 3: If the QR contains a URL → navigate or click
+  if (qrValue.startsWith("http")) {
+    await page.goto(qrValue);
+  } else {
+    throw new Error("QR code does not contain a valid URL");
+  }
+  
+}
+
+
+
 
 
