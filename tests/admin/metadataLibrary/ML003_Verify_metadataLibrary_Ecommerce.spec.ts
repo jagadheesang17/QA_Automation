@@ -4,7 +4,7 @@ const categoryName: any = FakerData.getCategory();
 const currencyName: any = "Canadian Dollar";
 test(`Verify that the user can successfully add a cancellation policy for E-learning under the Metadata Library module in the E-Commerce platform`, async ({ adminHome, metadatalibrary }) => {
     test.info().annotations.push(
-        { type: 'Author', description: 'Ajay Michael' },
+        { type: 'Author', description: 'Manikandan' },
         { type: 'TestCase', description: 'Verify that the user can successfully add a cancellation policy for E-learning' },
         { type: 'Test Description', description: "Verify that the user can successfully add a cancellation policy for E-learning" }
     );

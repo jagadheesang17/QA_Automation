@@ -4,7 +4,7 @@ test.describe(`Verify_metadataLibrary_Learning.spec.ts`, async () => {
     const categoryName: any = FakerData.getCategory();
     test(`Ensure that a new category can be created successfully`, async ({ adminHome, metadatalibrary }) => {
         test.info().annotations.push(
-            { type: 'Author', description: 'Ajay Michael' },
+            { type: 'Author', description: 'Manikandan' },
             { type: 'TestCase', description: 'Ensure that a new category can be created successfully' },
             { type: 'Test Description', description: "Ensure that a new category can be created successfully" }
         );
@@ -25,7 +25,7 @@ test.describe(`Verify_metadataLibrary_Learning.spec.ts`, async () => {
     const providerName = FakerData.getCategory();
     test(`Ensure that a new provider can be created successfully`, async ({ adminHome, metadatalibrary }) => {
         test.info().annotations.push(
-            { type: 'Author', description: 'Ajay Michael' },
+            { type: 'Author', description: 'Manikandan' },
             { type: 'TestCase', description: 'Ensure that a new provider can be created successfully' },
             { type: 'Test Description', description: "Ensure that a new provider can be created successfully" }
         );
@@ -47,7 +47,7 @@ test.describe(`Verify_metadataLibrary_Learning.spec.ts`, async () => {
     const CEU_ProviderName = FakerData.getCategory();
     test(`Verify that a CEU provider can be added under Metadata Library - Learning - CEU Provider`, async ({ adminHome, metadatalibrary }) => {
         test.info().annotations.push(
-            { type: 'Author', description: 'Ajay Michael' },
+            { type: 'Author', description: 'Manikandan' },
             { type: 'TestCase', description: 'Verify that a CEU provider can be added under Metadata Library - Learning - Ceu Provider' },
             { type: 'Test Description', description: "Creaing a CEU provider in Metadata Library with in the Learning - Ceu Provider" }
         );
@@ -69,7 +69,7 @@ test.describe(`Verify_metadataLibrary_Learning.spec.ts`, async () => {
     const ceuTypeName = FakerData.getCategory();
     test(`Verify that a CEU Type can be added under Metadata Library - Learning - CEU Type`, async ({ adminHome, metadatalibrary }) => {
         test.info().annotations.push(
-            { type: 'Author', description: 'Ajay Michael' },
+            { type: 'Author', description: 'Manikandan' },
             { type: 'TestCase', description: 'Verify that a CEU Type can be added under Metadata Library - Learning - CEU Type' },
             { type: 'Test Description', description: "Creaing a CEU Type in Metadata Library with in the Learning CEU Type" }
         );
@@ -90,7 +90,7 @@ test.describe(`Verify_metadataLibrary_Learning.spec.ts`, async () => {
     const tagName = FakerData.getCategory();
     test(`Verify that a tags can be added under Metadata Library - Learning - Tags`, async ({ adminHome, metadatalibrary }) => {
         test.info().annotations.push(
-            { type: 'Author', description: 'Ajay Michael' },
+            { type: 'Author', description: 'Manikandan' },
             { type: 'TestCase', description: 'Verify that a tags can be added under Metadata Library - Learning - Tags' },
             { type: 'Test Description', description: "Creaing a Tags in Metadata Library with in the Learning Tags" }
         );

@@ -4,7 +4,7 @@ import { FakerData } from "../../../utils/fakerUtils";
 const departmentName: any = FakerData.getCategory();
 test(`verify that a department can be added under Metadata Library - People - Department`, async ({ adminHome, metadatalibrary }) => {
     test.info().annotations.push(
-        { type: 'Author', description: 'Ajay Michael' },
+        { type: 'Author', description: 'Manikandan' },
         { type: 'TestCase', description: 'verify that a department can be added under Metadata Library - People - Department' },
         { type: 'Test Description', description: "Creating a department in the Metadata Library within the People Category" }
     );
@@ -25,7 +25,7 @@ test(`verify that a department can be added under Metadata Library - People - De
 const EmploymentType: any = FakerData.getCategory();
 test(`verify that a employment type can be added under Metadata Library - People - Employment Type`, async ({ adminHome, metadatalibrary }) => {
     test.info().annotations.push(
-        { type: 'Author', description: 'Ajay Michael' },
+        { type: 'Author', description: 'Manikandan' },
         { type: 'TestCase', description: 'verify that a employment type can be added under Metadata Library - People - Employment Type' },
         { type: 'Test Description', description: "Creating a employment type  in the Metadata Library within the People Category" }
     );
@@ -48,7 +48,7 @@ test(`verify that a employment type can be added under Metadata Library - People
 const usertypeName: any = FakerData.getCategory();
 test(`verify that a user type can be added under Metadata Library - People - User Type`, async ({ adminHome, metadatalibrary }) => {
     test.info().annotations.push(
-        { type: 'Author', description: 'Ajay Michael' },
+        { type: 'Author', description: 'Manikandan' },
         { type: 'TestCase', description: 'verify that a user type can be added under Metadata Library - People - User Type' },
         { type: 'Test Description', description: "Creating a UserType in the Metadata Library within the People Category" }
     );

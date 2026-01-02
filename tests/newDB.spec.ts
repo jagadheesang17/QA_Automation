@@ -9,7 +9,6 @@ const pool = mysql.createPool({
     connectionLimit: 10,  // Adjust according to your requirements
     waitForConnections: true
 });
-
 async function executeQuery(query) {
     let connection:any;
     try {
@@ -22,6 +21,4 @@ async function executeQuery(query) {
         if (connection) connection.release(); // Release connection back to the pool
     }
 }
-
-
 executeQuery("SELECT * FROM your_table");

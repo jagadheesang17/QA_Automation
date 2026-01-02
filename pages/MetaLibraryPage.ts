@@ -101,10 +101,9 @@ export class MetaLibraryPage extends AdminHomePage {
         peopleeditIcon: (data: string) => `(//span[text()='${data}']/following::span[@title='Edit'])[1]`,
         editIcon: (data: string) => `(//span[text()='${data}']//following::span[@aria-label='Edit'])[1]`,
         //general
-        equipmentLabelMetadataLibrary:`//div[@id="equipment-header"]`
-
-
-
+        equipmentLabelMetadataLibrary:`//div[@id="equipment-header"]`,
+        customFieldMenu:`//a[text()='Custom Field']`,
+        createCustomeFieldButton:`//button[text()='Create Custom Field']`,
     };
 
     constructor(page: Page, context: BrowserContext) {
@@ -695,8 +694,6 @@ export class MetaLibraryPage extends AdminHomePage {
         console.log("clickequipment comleted");
     }
 
-
-
    public async verifydeleteitemProvider(searchText: string) {
     await this.page.fill('//input[@id="provider-search-field"]', searchText);
     await this.page.waitForTimeout(500); // Optional: wait for results to update
@@ -711,6 +708,7 @@ export class MetaLibraryPage extends AdminHomePage {
     }
 
 }
+
 
     public async verifydeleteitemTag(searchText: string) {
         await this.page.fill('id="tag-search-field"]', searchText);

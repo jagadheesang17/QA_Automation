@@ -3,7 +3,7 @@ import { FakerData } from "../../../utils/fakerUtils";
 
 test(`Verify that language can be selected based on the list of languages under Metadata Library - General - Language`, async ({ adminHome, metadatalibrary }) => {
     test.info().annotations.push(
-        { type: 'Author', description: 'Ajay Michael' },
+        { type: 'Author', description: 'Manikandan' },
         { type: 'TestCase', description: 'verify that a department can be added under Metadata Library - General - Language' },
         { type: 'Test Description', description: "Creating a department in the Metadata Library within the General Language" }
     );
